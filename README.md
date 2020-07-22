@@ -31,7 +31,7 @@ Ok, now you have all cool stuff. Let's try to create something even better!
 > - `Title` with the name of your `my-cool-feature`
 > - `Description` with some explanatory text
 
-8. After creating pull request you can proceed to its page on github by pressing corresponding blue button
+8. After creating pull request you can proceed to its page on GitHub by pressing corresponding blue button
 9. Wait for the owner to approve your changes
 10. If all is ok (which I am absolutely sure of), you can end your feature by pressing Gitflow > `Finish my-cool-feature` green button. Bravely select `delete branch`.
 11. Be ready to repeat this quest as many times as you want. Good luck!
