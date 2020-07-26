@@ -19,6 +19,8 @@ public class PlayActivity extends AppCompatActivity {
     ImageView circle;
     int score = 0;
     int stopmark;
+    int width;
+    int height;
     String typeOfCircle;
 
     @Override
@@ -38,33 +40,12 @@ public class PlayActivity extends AppCompatActivity {
         } else if (typeOfCircle.equals("circle_purple2")) {
             circle.setImageResource(R.drawable.circle_purple2);
         }
+
+        // TODO: replace in constructor
+        DisplayMetrics displaymetrics = getResources().getDisplayMetrics();
+        width = displaymetrics.widthPixels;
+        height = displaymetrics.heightPixels;
     }
-
-
-    // TODO: replace in constructor
-    DisplayMetrics displaymetrics = getResources().getDisplayMetrics();
-    int width = displaymetrics.widthPixels;
-    int height = displaymetrics.heightPixels;
-
-
-
-    /*public int Screenwidth() {
-        int width;
-        Point size = new Point();
-        WindowManager w = getWindowManager();
-        w.getDefaultDisplay().getSize(size);
-        width = size.x;
-        return width;
-    }
-
-    public int Screenheight() {
-        int height;
-        Point size = new Point();
-        WindowManager w = getWindowManager();
-        w.getDefaultDisplay().getSize(size);
-        height = size.y;
-        return height;
-    }*/
 
     public void onClick (View view){
 
