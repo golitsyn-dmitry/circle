@@ -89,6 +89,7 @@
                     android:layout_weight="1"
                     android:layout_margin="5dp"
                     app:srcCompat="@drawable/circle_purple_locked" />
+
             </LinearLayout>
         </HorizontalScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -133,8 +133,8 @@ public class ChoiceActivity extends AppCompatActivity {
                 setResult(RESULT_OK, data);
                 finish();
             } else {
-                if (totalScore >= 10) {
-                    totalScore = totalScore - 10;
+                if (totalScore >= 20) {
+                    totalScore = totalScore - 20;
                     circle_red2Bl = true;
                     bigCircle.setImageResource(R.drawable.circle_red2_big);
                     circle_red2.setImageResource(R.drawable.circle_red2);
@@ -151,8 +151,8 @@ public class ChoiceActivity extends AppCompatActivity {
                 setResult(RESULT_OK, data);
                 finish();
             } else {
-                if (totalScore >= 10) {
-                    totalScore = totalScore - 10;
+                if (totalScore >= 30) {
+                    totalScore = totalScore - 30;
                     circle_purple2Bl = true;
                     bigCircle.setImageResource(R.drawable.circle_purple2_big);
                     circle_purple2.setImageResource(R.drawable.circle_purple2);
