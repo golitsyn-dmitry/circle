@@ -3,6 +3,8 @@ package com.hfad.circle2;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.renderscript.Sampler;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -29,8 +31,8 @@ public class ChoiceActivity extends AppCompatActivity {
         Intent intent = getIntent();
         totalScore = intent.getIntExtra("totalScore",0);
         circle_blue2Bl = intent.getBooleanExtra("circle_blue2Bl",circle_blue2Bl);
-        circle_red2Bl = intent.getBooleanExtra("circle_blue2Bl",circle_red2Bl);
-        circle_purple2Bl = intent.getBooleanExtra("circle_blue2Bl",circle_purple2Bl);
+        circle_red2Bl = intent.getBooleanExtra("circle_red2Bl",circle_red2Bl);
+        circle_purple2Bl = intent.getBooleanExtra("circle_purple2Bl",circle_purple2Bl);
 
         circle_black2 = findViewById(R.id.circle_black2);
         circle_blue2 = findViewById(R.id.circle_blue2);
@@ -41,6 +43,16 @@ public class ChoiceActivity extends AppCompatActivity {
         circle_blue2.setOnClickListener(onClickCircle);
         circle_red2.setOnClickListener(onClickCircle);
         circle_purple2.setOnClickListener(onClickCircle);
+
+        if (circle_blue2Bl) {
+            circle_blue2.setImageResource(R.drawable.circle_blue2);
+        }
+        if (circle_red2Bl) {
+            circle_red2.setImageResource(R.drawable.circle_red2);
+        }
+        if (circle_purple2Bl) {
+            circle_purple2.setImageResource(R.drawable.circle_purple2);
+        }
     }
 
     View.OnClickListener onClickCircle = new View.OnClickListener() {
@@ -103,7 +115,7 @@ public class ChoiceActivity extends AppCompatActivity {
                 setResult(RESULT_OK, data);
                 finish();
             } else {
-                if (totalScore > 10) {
+                if (totalScore >= 10) {
                     totalScore = totalScore - 10;
                     circle_blue2Bl = true;
                     bigCircle.setImageResource(R.drawable.circle_blue2_big);
@@ -121,7 +133,7 @@ public class ChoiceActivity extends AppCompatActivity {
                 setResult(RESULT_OK, data);
                 finish();
             } else {
-                if (totalScore > 10) {
+                if (totalScore >= 10) {
                     totalScore = totalScore - 10;
                     circle_red2Bl = true;
                     bigCircle.setImageResource(R.drawable.circle_red2_big);

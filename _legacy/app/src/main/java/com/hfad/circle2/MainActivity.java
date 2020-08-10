@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
@@ -45,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
         circle2 = findViewById(R.id.circle2);
         tapToGame = findViewById(R.id.tapToGame);
         scoreText = findViewById(R.id.scoreText);
-
     }
 
     public void onClick (View view){
