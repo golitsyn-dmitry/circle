@@ -45,8 +45,8 @@ public class PlayActivity extends AppCompatActivity {
             circle.setImageResource(R.drawable.circle_purple2);
         }
 
-        Intent intent = getIntent();
-        totalScore = intent.getIntExtra("totalScore",0);
+        //Intent intent = getIntent();
+        //totalScore = intent.getIntExtra("totalScore",0);
 
         DisplayMetrics displaymetrics = getResources().getDisplayMetrics();
         width = displaymetrics.widthPixels;
@@ -130,7 +130,7 @@ public class PlayActivity extends AppCompatActivity {
                 y2 = touchevent.getY();
                 if(x1 > x2 + 300){
                     Intent intent = new Intent();
-                    intent.putExtra("totalScore", totalScore);
+                    //intent.putExtra("totalScore", totalScore);
                     setResult(RESULT_OK, intent);
                     finish();
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
