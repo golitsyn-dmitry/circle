@@ -2,10 +2,12 @@ package com.hfad.circle2;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -17,8 +19,12 @@ import java.util.Random;
 public class PlayActivity extends AppCompatActivity {
 
     ImageView circle;
+    int totalScore;
+    float x1, x2, y1, y2;
     int score = 0;
     int stopmark;
+    int width;
+    int height;
     String typeOfCircle;
 
     @Override
@@ -38,33 +44,14 @@ public class PlayActivity extends AppCompatActivity {
         } else if (typeOfCircle.equals("circle_purple2")) {
             circle.setImageResource(R.drawable.circle_purple2);
         }
+
+        Intent intent = getIntent();
+        totalScore = intent.getIntExtra("totalScore",0);
+
+        DisplayMetrics displaymetrics = getResources().getDisplayMetrics();
+        width = displaymetrics.widthPixels;
+        height = displaymetrics.heightPixels;
     }
-
-
-    // TODO: replace in constructor
-    DisplayMetrics displaymetrics = getResources().getDisplayMetrics();
-    int width = displaymetrics.widthPixels;
-    int height = displaymetrics.heightPixels;
-
-
-
-    /*public int Screenwidth() {
-        int width;
-        Point size = new Point();
-        WindowManager w = getWindowManager();
-        w.getDefaultDisplay().getSize(size);
-        width = size.x;
-        return width;
-    }
-
-    public int Screenheight() {
-        int height;
-        Point size = new Point();
-        WindowManager w = getWindowManager();
-        w.getDefaultDisplay().getSize(size);
-        height = size.y;
-        return height;
-    }*/
 
     public void onClick (View view){
 
@@ -110,8 +97,8 @@ public class PlayActivity extends AppCompatActivity {
             //int maxHeight = (int) (Screenheight() - circleHeight);
 
             Random random = new Random();
-            int xRand = random.nextInt(500);
-            int yRand = random.nextInt(700);
+            int xRand = random.nextInt(width - 360);
+            int yRand = random.nextInt(height - 360);
 
             String string = "X: " + width + "; Y: " + height;
 
@@ -130,5 +117,26 @@ public class PlayActivity extends AppCompatActivity {
             layoutParams.weight = 1;
             circle.setLayoutParams(layoutParams);
         }
+    }
+
+    public boolean onTouchEvent (MotionEvent touchevent){
+        switch (touchevent.getAction()){
+            case MotionEvent.ACTION_DOWN:
+                x1 =touchevent.getX();
+                y1 = touchevent.getY();
+                break;
+            case MotionEvent.ACTION_UP:
+                x2 =touchevent.getX();
+                y2 = touchevent.getY();
+                if(x1 > x2 + 300){
+                    Intent intent = new Intent();
+                    intent.putExtra("totalScore", totalScore);
+                    setResult(RESULT_OK, intent);
+                    finish();
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                }
+                break;
+        }
+        return false;
     }
 }

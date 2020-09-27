@@ -64,7 +64,6 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_margin="5dp"
-                    android:onClick="onClickCircleBlack2"
                     app:srcCompat="@drawable/circle_black2" />
 
                 <ImageView
@@ -73,7 +72,6 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_margin="5dp"
-                    android:onClick="onClickCircleBlue2"
                     app:srcCompat="@drawable/circle_blue_locked" />
 
                 <ImageView
@@ -82,17 +80,16 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_margin="5dp"
-                    android:onClick="onClickCircleRed2"
                     app:srcCompat="@drawable/circle_red_locked" />
 
                 <ImageView
-                    android:id="@+id/circle_purple_valued"
+                    android:id="@+id/circle_purple2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_margin="5dp"
-                    android:onClick="onClickCirclePurpleValued"
                     app:srcCompat="@drawable/circle_purple_locked" />
+
             </LinearLayout>
         </HorizontalScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
