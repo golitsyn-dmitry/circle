@@ -1,13 +1,15 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
     defaultConfig {
         applicationId "com.hfad.circle2"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 29
+        multiDexEnabled true
         versionCode 6
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -31,6 +33,13 @@ dependencies {
     implementation 'com.android.billingclient:billing:2.2.1'
     implementation "androidx.core:core-ktx:+"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    implementation 'com.firebaseui:firebase-ui-auth:6.2.0'
+    implementation 'com.google.android.gms:play-services-auth:18.1.0'
+
+    implementation 'com.google.firebase:firebase-analytics-ktx:17.5.0'
+    implementation 'com.google.firebase:firebase-auth-ktx:19.4.0'
+    implementation 'com.google.firebase:firebase-firestore-ktx:21.7.0'
 }
 repositories {
     mavenCentral()

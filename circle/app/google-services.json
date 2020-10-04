@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "547186435647",
+    "firebase_url": "https://circle-4a2ea.firebaseio.com",
+    "project_id": "circle-4a2ea",
+    "storage_bucket": "circle-4a2ea.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:547186435647:android:fe5864a309dc1f55833a8a",
+        "android_client_info": {
+          "package_name": "com.hfad.circle2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "547186435647-7ojkmgpgka2f1n7g3n538hb13o565945.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDrIgv0G9nU_V5JRAH7t5JYnN5thXdwSis"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "547186435647-7ojkmgpgka2f1n7g3n538hb13o565945.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

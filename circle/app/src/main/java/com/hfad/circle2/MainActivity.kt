@@ -1,7 +1,9 @@
 package com.hfad.circle2
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.view.animation.Animation
@@ -9,6 +11,10 @@ import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.firebase.ui.auth.AuthUI
+import com.firebase.ui.auth.IdpResponse
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class MainActivity : AppCompatActivity() {
     var anim_circle: Animation? = null
@@ -40,6 +46,19 @@ class MainActivity : AppCompatActivity() {
         circle2 = findViewById(R.id.circle2)
         tapToGame = findViewById(R.id.tapToGame)
         scoreText = findViewById(R.id.scoreText)
+
+        val providers = arrayListOf(
+                AuthUI.IdpConfig.EmailBuilder().build(),
+                AuthUI.IdpConfig.GoogleBuilder().build())
+        // [START auth_fui_theme_logo]
+        startActivityForResult(
+                AuthUI.getInstance()
+                        .createSignInIntentBuilder()
+                        .setAvailableProviders(providers)
+                        .setLogo(R.drawable.circle_black) // Set logo drawable
+                        .setTheme(R.style.AppTheme) // Set theme
+                        .build(),
+                777)
     }
 
     fun onClick(view: View?) {
@@ -82,6 +101,46 @@ class MainActivity : AppCompatActivity() {
         if (data == null) {
             return
         }
+
+        if (requestCode == 777) {
+            val response = IdpResponse.fromResultIntent(data)
+
+            if (resultCode == Activity.RESULT_OK) {
+                // Successfully signed in
+                val user = FirebaseAuth.getInstance().currentUser
+                if (user == null) {
+                    return;
+                }
+                // Access a Cloud Firestore instance from your Activity
+                val db = FirebaseFirestore.getInstance()
+
+                // Reference to a Collection
+                val users = db.collection("users")
+                users.document(user.uid).get().addOnSuccessListener { document ->
+                    if (document.data != null) {
+                        Log.d("", "DocumentSnapshot data: ${document.data}")
+                    } else {
+                        Log.d("", "No such document")
+                        val newUserState = hashMapOf(
+                                "balance" to 0)
+
+                        users.document(user.uid).set(newUserState)
+                    }
+                }
+                        .addOnFailureListener { exception ->
+                            Log.d("", "get failed with ", exception)
+                        }
+
+
+                // ...
+            } else {
+                // Sign in failed. If response is null the user canceled the
+                // sign-in flow using the back button. Otherwise check
+                // response.getError().getErrorCode() and handle the error.
+                // ...
+            }
+        }
+
         when (requestCode) {
             REQUEST_ACCESS_TYPE_OnChoice -> {
                 typeOfCircle = data.getStringExtra("typeOfCircle")
