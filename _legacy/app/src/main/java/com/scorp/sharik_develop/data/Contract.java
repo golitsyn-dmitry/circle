@@ -1,4 +1,4 @@
-package com.scorp.circle2.data;
+package com.scorp.sharik_develop.data;
 
 import android.provider.BaseColumns;
 
