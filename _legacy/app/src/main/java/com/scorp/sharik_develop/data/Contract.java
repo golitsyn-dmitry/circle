@@ -1,4 +1,4 @@
-package com.hfad.circle2.data;
+package com.scorp.circle2.data;
 
 import android.provider.BaseColumns;
 

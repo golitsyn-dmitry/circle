@@ -1,4 +1,4 @@
-package com.hfad.circle2;
+package com.scorp.sharik_develop;
 
 import android.content.Context;
 
@@ -22,6 +22,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
-        assertEquals("com.hfad.circle2", appContext.getPackageName());
+        assertEquals("com.scorp.sharik_develop", appContext.getPackageName());
     }
 }

@@ -1,4 +1,4 @@
-package com.hfad.circle2;
+package com.scorp.sharik_develop;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,19 +7,17 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.renderscript.Sampler;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.hfad.circle2.data.DBHelper;
+import com.scorp.sharik_develop.data.DBHelper;
 
-import static com.hfad.circle2.data.Contract.Entry.CULUMN_CURRENT_COUNT;
-import static com.hfad.circle2.data.Contract.Entry.CULUMN_ID;
-import static com.hfad.circle2.data.Contract.Entry.TABLE_NAME;
+import static com.scorp.sharik_develop.data.Contract.Entry.CULUMN_CURRENT_COUNT;
+import static com.scorp.sharik_develop.data.Contract.Entry.CULUMN_ID;
+import static com.scorp.sharik_develop.data.Contract.Entry.TABLE_NAME;
 
 public class ChoiceActivity extends AppCompatActivity {
 

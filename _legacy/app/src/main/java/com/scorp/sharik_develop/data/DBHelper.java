@@ -1,10 +1,10 @@
-package com.hfad.circle2.data;
+package com.scorp.circle2.data;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import static com.hfad.circle2.data.Contract.Entry.*;
+import static com.scorp.circle2.data.Contract.Entry.*;
 
 public class DBHelper extends SQLiteOpenHelper {
 

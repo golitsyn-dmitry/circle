@@ -1,4 +1,4 @@
-package com.hfad.circle2;
+package com.scorp.sharik_develop;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,11 +14,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.hfad.circle2.data.DBHelper;
+import com.scorp.sharik_develop.data.DBHelper;
 
 import java.util.Random;
 
-import static com.hfad.circle2.data.Contract.Entry.*;
+import static com.scorp.sharik_develop.data.Contract.Entry.*;
 
 public class UnlimitPlayActivity extends AppCompatActivity {
 
