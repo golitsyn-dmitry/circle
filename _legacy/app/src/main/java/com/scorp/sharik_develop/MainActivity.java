@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_ACCESS_TYPE_OnChoice = 1;
     private static final int REQUEST_ACCESS_TYPE_OnGain = 2;
     private static final int REQUEST_ACCESS_TYPE_OnTime = 3;
+    private static final int REQUEST_ACCESS_TYPE_OnPurchase = 4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,11 +102,11 @@ public class MainActivity extends AppCompatActivity {
     public boolean onTouchEvent (MotionEvent touchevent){
         switch (touchevent.getAction()){
             case MotionEvent.ACTION_DOWN:
-                x1 =touchevent.getX();
+                x1 = touchevent.getX();
                 y1 = touchevent.getY();
                 break;
             case MotionEvent.ACTION_UP:
-                x2 =touchevent.getX();
+                x2 = touchevent.getX();
                 y2 = touchevent.getY();
                 if(x1 > x2 + 300){
                     Intent intent_onGain = new Intent(this, UnlimitPlayActivity.class);
@@ -119,6 +120,11 @@ public class MainActivity extends AppCompatActivity {
                     intent.putExtra("typeOfCircle", typeOfCircle);
                     startActivityForResult(intent, REQUEST_ACCESS_TYPE_OnTime);
                     overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+                } else if (y1 > y2 + 300){
+                    Intent intent = new Intent(this, PurchaseActivity.class);
+                    intent.putExtra("typeOfCircle", typeOfCircle);
+                    startActivityForResult(intent, REQUEST_ACCESS_TYPE_OnPurchase);
+                    overridePendingTransition(R.anim.slide_in_down, R.anim.slide_out_up);
                 }
                 break;
         }

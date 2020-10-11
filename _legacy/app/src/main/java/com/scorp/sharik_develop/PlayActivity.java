@@ -122,11 +122,11 @@ public class PlayActivity extends AppCompatActivity {
     public boolean onTouchEvent (MotionEvent touchevent){
         switch (touchevent.getAction()){
             case MotionEvent.ACTION_DOWN:
-                x1 =touchevent.getX();
+                x1 = touchevent.getX();
                 y1 = touchevent.getY();
                 break;
             case MotionEvent.ACTION_UP:
-                x2 =touchevent.getX();
+                x2 = touchevent.getX();
                 y2 = touchevent.getY();
                 if(x1 > x2 + 300){
                     Intent intent = new Intent();
