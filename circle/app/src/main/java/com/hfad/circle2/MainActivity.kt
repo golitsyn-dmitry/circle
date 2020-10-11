@@ -11,10 +11,16 @@ import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.firebase.ui.auth.AuthUI
-import com.firebase.ui.auth.IdpResponse
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
+import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 
 class MainActivity : AppCompatActivity() {
     var anim_circle: Animation? = null
@@ -26,7 +32,7 @@ class MainActivity : AppCompatActivity() {
     var circle2: TextView? = null
     var tapToGame: TextView? = null
     var scoreText: TextView? = null
-    var totalScore = 0
+    var totalScore: Long = 0
     var x1 = 0f
     var x2 = 0f
     var y1 = 0f
@@ -58,7 +64,7 @@ class MainActivity : AppCompatActivity() {
                         .setLogo(R.drawable.circle_black) // Set logo drawable
                         .setTheme(R.style.AppTheme) // Set theme
                         .build(),
-                777)
+                SIGN_IN_ACTIVITY_RESULT_SUCCESS_CODE)
     }
 
     fun onClick(view: View?) {
@@ -98,52 +104,26 @@ class MainActivity : AppCompatActivity() {
     }
 
     public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
         if (data == null) {
             return
         }
 
-        if (requestCode == 777) {
-            val response = IdpResponse.fromResultIntent(data)
-
+        if (requestCode == SIGN_IN_ACTIVITY_RESULT_SUCCESS_CODE) {
             if (resultCode == Activity.RESULT_OK) {
-                // Successfully signed in
-                val user = FirebaseAuth.getInstance().currentUser
-                if (user == null) {
-                    return;
+
+                val user = Firebase.auth.currentUser ?: return
+
+                lifecycleScope.launch {
+                    val userData = getUserData(user)
+                    totalScore = userData?.balance ?: 0;
                 }
-                // Access a Cloud Firestore instance from your Activity
-                val db = FirebaseFirestore.getInstance()
-
-                // Reference to a Collection
-                val users = db.collection("users")
-                users.document(user.uid).get().addOnSuccessListener { document ->
-                    if (document.data != null) {
-                        Log.d("", "DocumentSnapshot data: ${document.data}")
-                    } else {
-                        Log.d("", "No such document")
-                        val newUserState = hashMapOf(
-                                "balance" to 0)
-
-                        users.document(user.uid).set(newUserState)
-                    }
-                }
-                        .addOnFailureListener { exception ->
-                            Log.d("", "get failed with ", exception)
-                        }
-
-
-                // ...
-            } else {
-                // Sign in failed. If response is null the user canceled the
-                // sign-in flow using the back button. Otherwise check
-                // response.getError().getErrorCode() and handle the error.
-                // ...
             }
         }
 
         when (requestCode) {
             REQUEST_ACCESS_TYPE_OnChoice -> {
-                typeOfCircle = data.getStringExtra("typeOfCircle")
+                typeOfCircle = data.getStringExtra("typeOfCircle").toString()
                 if (typeOfCircle == "circle_black2") {
                     startCircle!!.setImageResource(R.drawable.circle_black2)
                 } else if (typeOfCircle == "circle_blue2") {
@@ -153,14 +133,14 @@ class MainActivity : AppCompatActivity() {
                 } else if (typeOfCircle == "circle_purple2") {
                     startCircle!!.setImageResource(R.drawable.circle_purple2)
                 }
-                totalScore = data.getIntExtra("totalScore", 5)
+                totalScore = data.getLongExtra("totalScore", 5)
                 scoreText!!.text = "TOTAL SCORE $totalScore"
                 circle_blue2Bl = data.getBooleanExtra("circle_blue2Bl", circle_blue2Bl)
                 circle_red2Bl = data.getBooleanExtra("circle_red2Bl", circle_red2Bl)
                 circle_purple2Bl = data.getBooleanExtra("circle_purple2Bl", circle_purple2Bl)
             }
             REQUEST_ACCESS_TYPE_OnGain -> {
-                totalScore = data.getIntExtra("totalScore", 5)
+                totalScore = data.getLongExtra("totalScore", 5)
                 scoreText!!.text = "TOTAL SCORE $totalScore"
             }
         }
@@ -168,7 +148,33 @@ class MainActivity : AppCompatActivity() {
         startCircle!!.startAnimation(anim_circle)
     }
 
+    private suspend fun getUserData(user: FirebaseUser): PlayerData? {
+        return try {
+            val users = Firebase.firestore
+                    .collection("users")
+
+            val userData = users
+                    .document(user.uid).get()
+                    .await()
+
+            if (userData.data != null)
+                return userData.toObject<PlayerData>()
+
+            // No data for current user yet, creating
+            val newUserData = hashMapOf("balance" to 0)
+            users.document(user.uid).set(newUserData)
+
+            return userData.toObject<PlayerData>()
+        } catch (e: Exception) {
+            Log.e(TAG, "Error getting user data", e)
+
+            return null
+        }
+    }
+
     companion object {
+        private const val TAG = "MainActivity"
+        private const val SIGN_IN_ACTIVITY_RESULT_SUCCESS_CODE = 0
         private const val REQUEST_ACCESS_TYPE_OnChoice = 1
         private const val REQUEST_ACCESS_TYPE_OnGain = 2
         private const val REQUEST_ACCESS_TYPE_OnTime = 3
