@@ -1,4 +1,4 @@
-package com.hfad.circle2
+package com.scorp.sharik_develop
 
 import android.app.Activity
 import android.content.Intent
@@ -15,7 +15,6 @@ import androidx.lifecycle.lifecycleScope
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
@@ -97,6 +96,11 @@ class MainActivity : AppCompatActivity() {
                     intent.putExtra("totalScore", totalScore)
                     startActivityForResult(intent, REQUEST_ACCESS_TYPE_OnTime)
                     overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+                } else if (y1 > y2 + 300){
+                    val intent = Intent(this, PurchaseActivity::class.java)
+                    intent.putExtra("typeOfCircle", typeOfCircle)
+                    startActivityForResult(intent, REQUEST_ACCESS_TYPE_OnPurchase);
+                    overridePendingTransition(R.anim.slide_in_down, R.anim.slide_out_up);
                 }
             }
         }
@@ -149,7 +153,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private suspend fun getUserData(user: FirebaseUser): PlayerData? {
-        return try {
+        try {
             val users = Firebase.firestore
                     .collection("users")
 
@@ -178,5 +182,6 @@ class MainActivity : AppCompatActivity() {
         private const val REQUEST_ACCESS_TYPE_OnChoice = 1
         private const val REQUEST_ACCESS_TYPE_OnGain = 2
         private const val REQUEST_ACCESS_TYPE_OnTime = 3
+        private const val REQUEST_ACCESS_TYPE_OnPurchase = 4
     }
 }

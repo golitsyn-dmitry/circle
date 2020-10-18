@@ -1,4 +1,4 @@
-package com.hfad.circle2
+package com.scorp.sharik_develop
 
 import android.content.Intent
 import android.os.Bundle

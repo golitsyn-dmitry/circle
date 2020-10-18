@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-        package="com.hfad.circle2"
+        package="com.scorp.sharik_develop"
         android:versionCode="6">
 
     <uses-permission android:name="com.android.vending.BILLING" />
@@ -12,6 +12,7 @@
             android:roundIcon="@mipmap/logo2"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <activity android:name=".PurchaseActivity"></activity>
         <activity android:name=".UnlimitPlayActivity" />
         <activity
                 android:name=".ChoiceActivity"
