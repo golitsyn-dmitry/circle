@@ -5,11 +5,11 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.view.MotionEvent
 import android.view.View
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.android.billingclient.api.*
 import java.util.*
+import kotlinx.android.synthetic.main.activity_purchase.*
 
 class PurchaseActivity : AppCompatActivity(), View.OnClickListener {
     var totalScore = 0
@@ -19,17 +19,9 @@ class PurchaseActivity : AppCompatActivity(), View.OnClickListener {
     var y2 = 0f
     private var billingClient: BillingClient? = null
     private val mSkuDetailsMap: MutableMap<String, SkuDetails> = HashMap()
-    var tv_clicks_50: TextView? = null
-    var tv_clicks_100: TextView? = null
-    var tv_clicks_150: TextView? = null
-    var tv_clicks_200: TextView? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_purchase)
-        tv_clicks_50 = findViewById(R.id.tv_clicks_50)
-        tv_clicks_100 = findViewById(R.id.tv_clicks_100)
-        tv_clicks_150 = findViewById(R.id.tv_clicks_150)
-        tv_clicks_200 = findViewById(R.id.tv_clicks_200)
         tv_clicks_50?.setOnClickListener(this)
         tv_clicks_100?.setOnClickListener(this)
         tv_clicks_150?.setOnClickListener(this)
@@ -129,11 +121,11 @@ class PurchaseActivity : AppCompatActivity(), View.OnClickListener {
     private fun payComplete(clicks: String) {
         when (clicks) {
             clicks_50 -> {
-                totalScore = totalScore + 50
+                totalScore += 50
                 Toast.makeText(this, "Вы купили 50 тапков", Toast.LENGTH_SHORT).show()
             }
             clicks_100 -> {
-                totalScore = totalScore + 100
+                totalScore += 100
                 Toast.makeText(this, "Вы купили 100 тапков", Toast.LENGTH_SHORT).show()
             }
         }

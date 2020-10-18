@@ -8,6 +8,8 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 import java.util.*
 
 class UnlimitPlayActivity : AppCompatActivity() {
@@ -16,7 +18,7 @@ class UnlimitPlayActivity : AppCompatActivity() {
     var x2 = 0f
     var y1 = 0f
     var y2 = 0f
-    var totalScore = 0
+    var totalScore:Long = 0
     var width = 0
     var height = 0
     var typeOfCircle: String? = null
@@ -39,10 +41,12 @@ class UnlimitPlayActivity : AppCompatActivity() {
             "circle_purple2" ->
                 circle?.setImageResource(R.drawable.circle_purple2)
         }
-        val intent = intent
-        totalScore = intent.getIntExtra("totalScore", 0)
-        scoretxt = totalScore.toString()
-        scoreText?.text = scoretxt
+        lifecycleScope.launch {
+            totalScore = FirebaseHelpers.getUserData()?.balance ?: 0
+            scoretxt = totalScore.toString()
+            scoreText?.text = scoretxt
+        }
+
         val displaymetrics = resources.displayMetrics
         width = displaymetrics.widthPixels
         height = displaymetrics.heightPixels
@@ -86,5 +90,12 @@ class UnlimitPlayActivity : AppCompatActivity() {
             }
         }
         return false
+    }
+
+    override fun onPause() {
+        super.onPause()
+        lifecycleScope.launch {
+            FirebaseHelpers.setUserBalance(totalScore)
+        }
     }
 }

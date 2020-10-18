@@ -6,16 +6,18 @@ import android.os.CountDownTimer
 import android.view.Gravity
 import android.view.MotionEvent
 import android.view.View
-import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import kotlinx.android.synthetic.main.activity_play.*
+import kotlinx.coroutines.launch
 import java.util.*
 
+
 class PlayActivity : AppCompatActivity() {
-    var circle: ImageView? = null
-    var totalScore = 0
+    var totalScore: Long = 0
     var x1 = 0f
     var x2 = 0f
     var y1 = 0f
@@ -28,23 +30,22 @@ class PlayActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_play)
+
+        lifecycleScope.launch {
+            totalScore = FirebaseHelpers.getUserData()?.balance ?: 0
+        }
+
         val arguments = intent.extras
         typeOfCircle = if (arguments != null) arguments.getString("typeOfCircle") else ""
-        circle = findViewById<View>(R.id.circle) as ImageView
-        if (typeOfCircle == "circle_black2") {
-            circle!!.setImageResource(R.drawable.circle_black2)
-        } else if (typeOfCircle == "circle_blue2") {
-            circle!!.setImageResource(R.drawable.circle_blue2)
-        } else if (typeOfCircle == "circle_red2") {
-            circle!!.setImageResource(R.drawable.circle_red2)
-        } else if (typeOfCircle == "circle_purple2") {
-            circle!!.setImageResource(R.drawable.circle_purple2)
+        when (typeOfCircle) {
+            "circle_black2" -> circle!!.setImageResource(R.drawable.circle_black2)
+            "circle_blue2" -> circle!!.setImageResource(R.drawable.circle_blue2)
+            "circle_red2" -> circle!!.setImageResource(R.drawable.circle_red2)
+            "circle_purple2" -> circle!!.setImageResource(R.drawable.circle_purple2)
         }
-        val intent = intent
-        totalScore = intent.getIntExtra("totalScore", 0)
-        val displaymetrics = resources.displayMetrics
-        width = displaymetrics.widthPixels
-        height = displaymetrics.heightPixels
+        val displayMetrics = resources.displayMetrics
+        width = displayMetrics.widthPixels
+        height = displayMetrics.heightPixels
     }
 
     fun onClick(view: View?) {
@@ -120,5 +121,12 @@ class PlayActivity : AppCompatActivity() {
             }
         }
         return false
+    }
+
+    override fun onPause() {
+        super.onPause()
+        lifecycleScope.launch {
+            FirebaseHelpers.setUserBalance(totalScore)
+        }
     }
 }
