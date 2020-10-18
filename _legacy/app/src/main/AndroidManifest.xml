@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.hfad.circle2"
-    android:versionCode="6">
+    package="com.scorp.sharik_develop"
+    android:versionCode="1">
 
     <uses-permission android:name="com.android.vending.BILLING" />
 
@@ -12,10 +12,11 @@
         android:roundIcon="@mipmap/logo2"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".UnlimitPlayActivity"></activity>
+        <activity android:name=".PurchaseActivity"></activity>
+        <activity android:name=".UnlimitPlayActivity" />
         <activity
             android:name=".ChoiceActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".PlayActivity"
             android:screenOrientation="portrait" />

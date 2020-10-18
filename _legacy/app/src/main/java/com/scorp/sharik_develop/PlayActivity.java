@@ -1,4 +1,4 @@
-package com.hfad.circle2;
+package com.scorp.sharik_develop;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -45,8 +45,8 @@ public class PlayActivity extends AppCompatActivity {
             circle.setImageResource(R.drawable.circle_purple2);
         }
 
-        Intent intent = getIntent();
-        totalScore = intent.getIntExtra("totalScore",0);
+        //Intent intent = getIntent();
+        //totalScore = intent.getIntExtra("totalScore",0);
 
         DisplayMetrics displaymetrics = getResources().getDisplayMetrics();
         width = displaymetrics.widthPixels;
@@ -122,15 +122,15 @@ public class PlayActivity extends AppCompatActivity {
     public boolean onTouchEvent (MotionEvent touchevent){
         switch (touchevent.getAction()){
             case MotionEvent.ACTION_DOWN:
-                x1 =touchevent.getX();
+                x1 = touchevent.getX();
                 y1 = touchevent.getY();
                 break;
             case MotionEvent.ACTION_UP:
-                x2 =touchevent.getX();
+                x2 = touchevent.getX();
                 y2 = touchevent.getY();
                 if(x1 > x2 + 300){
                     Intent intent = new Intent();
-                    intent.putExtra("totalScore", totalScore);
+                    //intent.putExtra("totalScore", totalScore);
                     setResult(RESULT_OK, intent);
                     finish();
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
