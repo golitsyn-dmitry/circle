@@ -1,8 +1,11 @@
 package com.scorp.sharik_develop
 
+import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.transition.TransitionManager
 import android.view.Gravity
 import android.view.MotionEvent
 import android.view.View
@@ -10,6 +13,8 @@ import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.lifecycle.lifecycleScope
 import kotlinx.android.synthetic.main.activity_play.*
 import kotlinx.coroutines.launch
@@ -27,9 +32,13 @@ class PlayActivity : AppCompatActivity() {
     var width = 0
     var height = 0
     var typeOfCircle: String? = null
+    var constraintLayout: ConstraintLayout? = null
+    var context: Context? = this
+    val set = ConstraintSet()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_play)
+        constraintLayout = findViewById(R.id.activity_play)
 
         lifecycleScope.launch {
             totalScore = FirebaseHelpers.getUserData()?.balance ?: 0
@@ -49,13 +58,14 @@ class PlayActivity : AppCompatActivity() {
     }
 
     fun onClick(view: View?) {
-        val textView = findViewById<View>(R.id.textView) as TextView
+        val textView = findViewById<View>(R.id.testText) as TextView
         val scoreText = findViewById<View>(R.id.scoreText) as TextView
         val relativeLayout = findViewById<View>(R.id.ll) as RelativeLayout
-        val layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-        )
+        set.clone(constraintLayout)
+//        val layoutParams = LinearLayout.LayoutParams(
+//                LinearLayout.LayoutParams.WRAP_CONTENT,
+//                LinearLayout.LayoutParams.WRAP_CONTENT
+//        )
         var scoretxt = ""
         val scoretotal: String
         //int circleWidth = circle.getWidth();
@@ -87,18 +97,47 @@ class PlayActivity : AppCompatActivity() {
             val random = Random()
             val xRand = random.nextInt(width - 360)
             val yRand = random.nextInt(height - 360)
-            val string = "X: $width; Y: $height"
-            textView.text = string
+//            val string = "X: $width; Y: $height"
+//            textView.text = string
             scoreText.text = scoretxt
-            layoutParams.leftMargin = xRand
-            layoutParams.topMargin = yRand
-            circle!!.layoutParams = layoutParams
+//            layoutParams.leftMargin = xRand
+//            layoutParams.topMargin = yRand
+//            circle!!.layoutParams = layoutParams
+            set.clear(R.id.circle, ConstraintSet.END)
+            set.clear(R.id.circle, ConstraintSet.BOTTOM)
+            set.clear(R.id.scoreText, ConstraintSet.END)
+            set.clear(R.id.scoreText, ConstraintSet.BOTTOM)
+
+            set.setMargin(R.id.circle, ConstraintSet.START, xRand)
+            set.setMargin(R.id.circle, ConstraintSet.TOP, yRand)
+            set.setMargin(R.id.scoreText, ConstraintSet.START, xRand)
+            set.setMargin(R.id.scoreText, ConstraintSet.TOP, yRand)
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                TransitionManager.beginDelayedTransition(constraintLayout)
+            }
+            set.applyTo(constraintLayout)
         } else {
-            scoretotal = "Your score is $score"
-            textView.text = scoretotal
-            layoutParams.gravity = Gravity.CENTER
-            layoutParams.weight = 1f
-            circle!!.layoutParams = layoutParams
+//            scoretotal = "Your score is $score"
+//            textView.text = scoretotal
+
+//            set.centerHorizontally(
+//                    R.id.circle,
+//                    R.id.activity_play,
+//                    ConstraintSet.START,
+//                    0,
+//                    R.id.activity_play,
+//                    ConstraintSet.END,
+//                    0,
+//                    0.5F)
+
+//            set.centerHorizontally(R.id.circle, R.id.activity_play)
+//            set.centerVertically(R.id.circle, R.id.activity_play)
+
+            set.applyTo(constraintLayout)
+//            layoutParams.gravity = Gravity.CENTER
+//            layoutParams.weight = 1f
+//            circle!!.layoutParams = layoutParams
         }
     }
 
