@@ -10,10 +10,55 @@
       "client_info": {
         "mobilesdk_app_id": "1:547186435647:android:fe5864a309dc1f55833a8a",
         "android_client_info": {
+          "package_name": "com.hfad.circle2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "547186435647-q7a8p9n8dh4bjgovhpttquuokhf2d3ff.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hfad.circle2",
+            "certificate_hash": "f41bd16f520a229ba3aa4584f8ab38adcde48620"
+          }
+        },
+        {
+          "client_id": "547186435647-7ojkmgpgka2f1n7g3n538hb13o565945.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDrIgv0G9nU_V5JRAH7t5JYnN5thXdwSis"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "547186435647-7ojkmgpgka2f1n7g3n538hb13o565945.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:547186435647:android:72df2c3a1eda5853833a8a",
+        "android_client_info": {
           "package_name": "com.scorp.sharik_develop"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "547186435647-10h30u5a6ha2j17jbpun28kurfhmcnp4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.scorp.sharik_develop",
+            "certificate_hash": "f41bd16f520a229ba3aa4584f8ab38adcde48620"
+          }
+        },
         {
           "client_id": "547186435647-7ojkmgpgka2f1n7g3n538hb13o565945.apps.googleusercontent.com",
           "client_type": 3

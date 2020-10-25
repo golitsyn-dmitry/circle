@@ -20,7 +20,7 @@ class LoadingActivity : AppCompatActivity() {
                 .setCacheSizeBytes(FirebaseFirestoreSettings.CACHE_SIZE_UNLIMITED)
                 .build()
         Firebase.firestore.firestoreSettings = settings
-        
+
         val providers = arrayListOf(
                 AuthUI.IdpConfig.EmailBuilder().build(),
                 AuthUI.IdpConfig.GoogleBuilder().build())
@@ -40,6 +40,7 @@ class LoadingActivity : AppCompatActivity() {
         if (data == null) {
             return
         }
+
 
         if (requestCode == SIGN_IN_ACTIVITY_RESULT_SUCCESS_CODE) {
             if (resultCode == Activity.RESULT_OK) {
