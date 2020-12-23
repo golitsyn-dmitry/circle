@@ -9,47 +9,57 @@
     tools:context=".PlayActivity">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/timerText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop = "true"
         android:layout_centerHorizontal = "true"
         android:paddingTop="10dp"
-        android:text="Coordinates" />
+        android:text="" />
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:id="@+id/activity_play">
 
         <ImageView
             android:id="@+id/circle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onClick"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/circle_black"
+            tools:layout_conversion_absoluteHeight="120dp"
+            tools:layout_conversion_absoluteWidth="120dp" />
+
+        <TextView
+            android:id="@+id/scoreText"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:onClick="onClick"
-            app:srcCompat="@drawable/circle_black" />
+            android:gravity="center"
+            android:text=""
+            android:textColor="@color/white"
+            android:textSize="35dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_conversion_absoluteHeight="120dp"
+            tools:layout_conversion_absoluteWidth="120dp" />
 
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/scoreText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom = "true"
-        android:layout_alignParentLeft="true"
-        android:paddingBottom="10dp"
-        android:paddingLeft="50dp"
-        android:text="Score" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
-        android:id="@+id/timerText"
+        android:id="@+id/testText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom = "true"
         android:layout_alignParentRight="true"
         android:paddingBottom="10dp"
         android:paddingRight="50dp"
-        android:text="Timer" />
+        android:text="" />
 </RelativeLayout>
