@@ -8,6 +8,7 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.firebase.ui.auth.AuthUI
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.launch
 
@@ -29,12 +30,21 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onClick(view: View?) {
-        val intentOnChoice = Intent(this, ChoiceActivity::class.java)
-        intentOnChoice.putExtra("totalScore", totalScore)
-        intentOnChoice.putExtra("circle_blue2Bl", circle_blue2Bl)
-        intentOnChoice.putExtra("circle_red2Bl", circle_red2Bl)
-        intentOnChoice.putExtra("circle_purple2Bl", circle_purple2Bl)
-        startActivityForResult(intentOnChoice, REQUEST_ACCESS_TYPE_OnChoice)
+        when (view?.id) {
+            btn_signout?.id -> {
+                AuthUI.getInstance().signOut(this)
+                val intent = Intent(this, SignInActivity::class.java)
+                startActivity(intent)
+            }
+            else -> {
+                val intentOnChoice = Intent(this, ChoiceActivity::class.java)
+                intentOnChoice.putExtra("totalScore", totalScore)
+                intentOnChoice.putExtra("circle_blue2Bl", circle_blue2Bl)
+                intentOnChoice.putExtra("circle_red2Bl", circle_red2Bl)
+                intentOnChoice.putExtra("circle_purple2Bl", circle_purple2Bl)
+                startActivityForResult(intentOnChoice, REQUEST_ACCESS_TYPE_OnChoice)
+            }
+        }
     }
 
     override fun onTouchEvent(touchevent: MotionEvent): Boolean {
