@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 class SignInActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        signOut()
+//        signOut()
         setContentView(R.layout.activity_signin)
         createSignInIntent()
     }
