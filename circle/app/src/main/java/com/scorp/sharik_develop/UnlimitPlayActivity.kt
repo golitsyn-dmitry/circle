@@ -120,6 +120,24 @@ class UnlimitPlayActivity : AppCompatActivity() {
                     finish()
                     overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
                 }
+                if (y2 > y1){
+                    set.clone(constraintLayout)
+
+                    set.clear(R.id.circle, ConstraintSet.END)
+                    set.clear(R.id.circle, ConstraintSet.BOTTOM)
+                    set.clear(R.id.scoreText, ConstraintSet.END)
+                    set.clear(R.id.scoreText, ConstraintSet.BOTTOM)
+
+                    set.setMargin(R.id.circle, ConstraintSet.START, x2.toInt() - 180)
+                    set.setMargin(R.id.circle, ConstraintSet.TOP, y2.toInt() - 180)
+                    set.setMargin(R.id.scoreText, ConstraintSet.START, x2.toInt() - 180)
+                    set.setMargin(R.id.scoreText, ConstraintSet.TOP, y2.toInt() - 180)
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                        TransitionManager.beginDelayedTransition(constraintLayout)
+                    }
+                    set.applyTo(constraintLayout)
+                }
             }
         }
         return false
