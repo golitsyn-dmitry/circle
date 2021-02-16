@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent)
             }
             else -> {
-                val intentOnChoice = Intent(this, ChoiceActivity::class.java)
+                val intentOnChoice = Intent(this, PurchaseActivityList::class.java)
                 intentOnChoice.putExtra("totalScore", totalScore)
                 intentOnChoice.putExtra("circle_blue2Bl", circle_blue2Bl)
                 intentOnChoice.putExtra("circle_red2Bl", circle_red2Bl)
